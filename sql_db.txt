@@ -46,4 +46,4 @@ where developer.name = this_name;
 
 end
 
-call procedure('Stepan')
+call deleteByName('Stepan')
