@@ -1,0 +1,49 @@
+create database `devincubator`;
+
+create table `company`(
+`name` varchar(255) not null,
+`language` varchar(255) not null,
+`salary` int(45),
+primary key(`name`)
+)default charset=utf8;
+
+create table `developer`(
+`name` varchar(255) not null,
+`rating` int(45) not null,
+`company` varchar(255) not null,
+primary key(`name`),
+foreign key(`company`) references `company`(`name`)
+)default charset=utf8;
+
+insert into company(name, language, salary) values('Microsoft', 'dotnet', 6500);
+
+insert into company(name, language, salary) values('Oracle', 'java', 6320);
+
+insert into company(name, language, salary) values('Google', 'java', 7210);
+
+insert into company(name, language, salary) values('Atlant', 'CH_P_U_stanok', 115);
+insert into developer(name, rating, company) values('Petya', 13, 'Oracle');
+insert into developer(name, rating, company) values('Vasya', 5, 'Google');
+insert into developer(name, rating, company) values('Ibragim', 8, 'Google');
+insert into developer(name, rating, company) values('Ulya', 21, 'Microsoft');
+insert into developer(name, rating, company) values('Natasha', 12, 'Microsoft');
+insert into developer(name, rating, company) values('KorneiChukovski', 6, 'Atlant');
+insert into developer(name, rating, company) values('Stepan', 9, 'Atlant');
+
+create view `viewExample` 
+as select 
+developer.name, rating, company, company.language, company.salary from developer 
+inner join company on developer.company = company.name
+
+create procedure `deleteByName`(this_name varchar(255))
+begin
+delete developer
+ from developer 
+
+left join company on developer.company = company.name
+
+where developer.name = this_name;
+
+end
+
+call procedure('Stepan')
